@@ -1,0 +1,205 @@
+// const App=()=>{
+  //   const [users, setUsers]=useState([]);
+  //   const [user, setUser]=useState({});
+  //   const [loading, setLoading]=useState(false);
+  //   const [alert, setAlert]=useState(null);
+  //   const [repos, setRepos]=useState([]);
+  
+  // async componentDidMount(){
+  //   this.setState({loading:true});
+  //   const res= await axios.get('http://api.github.com/users');
+  //  // axios.get('http://api.github.com/users').then(res => console.log(res.data));
+  //  this.setState({users:res.data,loading:false});
+  // }
+
+// import React,{Component, Fragment} from 'react';
+// import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+// import Navbar from './components/layouts/Navbar';
+// import axios from 'axios';
+// import Search from './components/users/Search';
+// import Users from './components/users/Users';
+// import User from './components/users/User';
+// import Alert from './components/layouts/Alert';
+// import About from './components/pages/About';
+
+// import './App.css';
+
+// // function App() {
+// //   return(
+
+// //     <h1>Hi</h1>
+// //   );
+// // }
+
+// class App extends Component{
+//   state={
+//     users:[],
+//     user:{},
+//     loading:false,
+//     alert:null,
+//     repos:[]
+//   };
+//   // async componentDidMount(){
+//   //   this.setState({loading:true});
+//   //   const res= await axios.get(' ');
+//   //  // axios.get('http://api.github.com/users').then(res => console.log(res.data));
+//   //  this.setState({users:res.data,loading:false});
+//   // }
+
+//   searchUsers= async text =>{
+//     this.setState({loading:true});
+//     const res= await axios.get(`http://api.github.com/search/users?q=${text}`);
+//    // axios.get('http://api.github.com/users').then(res => console.log(res.data));
+//    this.setState({users:res.data.items,loading:false});
+//   }
+
+//   getUser=async(username)=>{
+//     this.setState({loading:true});
+//     const res= await axios.get(`http://api.github.com/users/${username}`);
+//    // axios.get('http://api.github.com/users').then(res => console.log(res.data));
+//    this.setState({user:res.data,loading:false});
+//   }
+
+//   getUserRepos=async(username)=>{
+//     this.setState({loading:true});
+//     const res= await axios.get(`http://api.github.com/users/${username}/repos?per_page=5&sort=created:asc`);
+//    // axios.get('http://api.github.com/users').then(res => console.log(res.data));
+//    this.setState({repos:res.data,loading:false});
+//   }
+
+//   clearUsers=()=>{
+//     this.setState({users:[]});
+//   }
+//   setAlert=(msg,type)=>{
+//     this.setState({alert:{msg:msg,type:type}});
+//     setTimeout(()=>this.setState({alert:null}),5000);
+//   }
+
+//   render(){
+//     const {loading,users}=this.state;
+//     return(
+//       <Router>
+
+//       <div className='app'>
+//         <Navbar title="Github Finder" icon="fab fa-github"/>
+//         <div className="container">
+//           <Alert alert={this.state.alert}/>
+//           <Switch>
+//             <Route exact path='/' render={props=>(
+//               <Fragment>
+//                 <Search searchUsers={this.searchUsers} 
+//                 clearUsers={this.clearUsers} 
+//                 showClear={users.length > 0 ? true : false}
+//                 setAlert={this.setAlert}
+//                 />
+//                 <Users loading={loading} users={users}/>
+//                </Fragment>
+//             )} />
+//             <Route exact path='/about' component={About} />
+//             <Route exact path='/user/:login' render={props =>(
+//               <User {...props} 
+//               getUser={this.getUser} 
+//               getUserRepos={this.getUserRepos}
+//               repos={this.state.repos}
+//               user={this.state.user} loading={loading}/>
+//             )}/>
+//           </Switch>
+         
+//         </div>
+        
+//       </div>
+//       </Router>
+//     );
+//   }
+// }
+// export default App;
+
+
+// import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
+
+// export class Search extends Component {
+//   state={
+//     text:''
+//   };
+//   static propTypes={
+//     searchUsers: PropTypes.func.isRequired,
+//     clearUsers: PropTypes.func.isRequired,
+//     showClear: PropTypes.bool.isRequired,
+//     setAlert: PropTypes.func.isRequired
+//   }
+//   onChange=(e) => this.setState({[e.target.name]:e.target.value});
+//   onSubmit=(e)=>{
+//     e.preventDefault();
+//     if(this.state.text === ''){
+//       this.props.setAlert("please enter something",'light');
+//     }else{
+//       this.props.searchUsers(this.state.text);
+//       this.setState({text:''});
+//     }
+    
+//   }
+//   render() {
+//     const {showClear,clearUsers}=this.props;
+//     return (
+      
+//       <div>
+//         <form onSubmit={this.onSubmit} className="form">
+//           <input type="text" name="text" placeholder="search Users" value={this.state.text}
+//            onChange={this.onChange} />
+//           <input type="submit" value="submit" className="btn btn-dark btn-block"/>
+//         </form>
+//         {showClear && (
+//            <button className="btn btn-light btn-block" onClick={clearUsers}>clear</button>
+//         )}
+       
+//       </div>
+//     )
+//   }
+// }
+
+// export default Search
+// import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
+
+// export class Search extends Component {
+//   state={
+//     text:''
+//   };
+//   static propTypes={
+//     searchUsers: PropTypes.func.isRequired,
+//     clearUsers: PropTypes.func.isRequired,
+//     showClear: PropTypes.bool.isRequired,
+//     setAlert: PropTypes.func.isRequired
+//   }
+//   onChange=(e) => this.setState({[e.target.name]:e.target.value});
+//   onSubmit=(e)=>{
+//     e.preventDefault();
+//     if(this.state.text === ''){
+//       this.props.setAlert("please enter something",'light');
+//     }else{
+//       this.props.searchUsers(this.state.text);
+//       this.setState({text:''});
+//     }
+    
+//   }
+//   render() {
+//     const {showClear,clearUsers}=this.props;
+//     return (
+      
+//       <div>
+//         <form onSubmit={this.onSubmit} className="form">
+//           <input type="text" name="text" placeholder="search Users" value={this.state.text}
+//            onChange={this.onChange} />
+//           <input type="submit" value="submit" className="btn btn-dark btn-block"/>
+//         </form>
+//         {showClear && (
+//            <button className="btn btn-light btn-block" onClick={clearUsers}>clear</button>
+//         )}
+       
+//       </div>
+//     )
+//   }
+// }
+
+// export default Search
